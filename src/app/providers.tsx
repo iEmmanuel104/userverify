@@ -2,8 +2,8 @@
 
 import type React from "react";
 
-import { useToast } from "@/hooks/use-toast";
-import { Toast, ToastProvider, ToastTitle, ToastDescription } from "@/components/ui/toast";
+import { useToast } from "../hooks/use-toast";
+import { Toast, ToastProvider, ToastTitle, ToastDescription } from "../components/ui/toast";
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return (

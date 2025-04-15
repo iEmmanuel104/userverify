@@ -4,7 +4,7 @@ import * as React from "react";
 import { X } from "lucide-react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 const ToastProvider = ({ children }: { children: React.ReactNode }) => {
     return <div className="fixed top-0 right-0 z-50 p-4 w-full max-w-sm">{children}</div>;
