@@ -1,39 +1,31 @@
-import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { NextResponse } from "next/server";
+import { getUserByNIN } from "@/lib/db";
 
 export async function POST(request: Request) {
     try {
-        const { nin } = await request.json();
+        const { nin } = await request.json()
 
-        // Read the users database
-        const dbPath = path.join(process.cwd(), 'src', 'data', 'users.json');
-        const dbContent = fs.readFileSync(dbPath, 'utf-8');
-        const { users } = JSON.parse(dbContent);
+        // Validate NIN format
+        if (!nin || !/^\d{11}$/.test(nin)) {
+            return NextResponse.json({ success: false, message: "Invalid NIN format. Must be 11 digits." }, { status: 400 })
+        }
 
-        // Find user with matching NIN
-        const user = users.find((u: any) => u.nin === nin);
+        // Add a small delay to simulate API call
+        await new Promise((resolve) => setTimeout(resolve, 1500))
 
-        if (user) {
-            return NextResponse.json({
-                success: true,
-                user: {
-                    ...user,
-                    bvn: user.bvn // We'll keep the BVN for verification
-                }
-            });
+        // Check if user exists in our mock database
+        const user = getUserByNIN(nin)
+
+        if (!user) {
+            return NextResponse.json({ success: false, message: "No user found with this NIN." }, { status: 404 })
         }
 
         return NextResponse.json({
-            success: false,
-            message: 'NIN not found'
-        }, { status: 404 });
-
+            success: true,
+            user,
+        })
     } catch (error) {
-        console.error('Error verifying NIN:', error);
-        return NextResponse.json({
-            success: false,
-            message: 'Internal server error'
-        }, { status: 500 });
+        console.error("Error verifying NIN:", error)
+        return NextResponse.json({ success: false, message: "An error occurred while verifying NIN." }, { status: 500 })
     }
-} 
+}
