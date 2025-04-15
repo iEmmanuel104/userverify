@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "nin": "12345678901",
+      "bvn": "98765432101",
+      "firstName": "John",
+      "lastName": "Doe",
+      "middleName": "Smith",
+      "gender": "Male",
+      "image": "/avatars/john-doe.jpg"
+    },
+    {
+      "nin": "23456789012",
+      "bvn": "87654321012",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "middleName": "Marie",
+      "gender": "Female",
+      "image": "/avatars/jane-smith.jpg"
+    }
+  ]
+} 
